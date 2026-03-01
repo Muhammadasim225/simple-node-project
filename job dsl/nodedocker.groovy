@@ -1,4 +1,4 @@
-node("node js project v2"){
+job("node js project v2"){
 description("This project will clone from github and build and push to the dockerhub")
   scm {
         git('https://github.com/Muhammadasim225/simple-node-project.git','main') { node -> // is hudson.plugins.git.GitSCM
