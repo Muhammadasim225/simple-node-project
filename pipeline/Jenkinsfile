@@ -1,0 +1,22 @@
+// Scripted pipeline
+node{
+    stage('preapration'){
+        echo 'Cloning the repository'
+        git url:'https://github.com/Muhammadasim225/simple-node-project',branch:'main'
+    }
+    stage('image'){
+        echo 'Builing Image'
+        sh 'docker build -t muhammadasim0333/nodejs_dummy:${BUILD_NUMBER} .'
+       
+    }
+    stage("Deplyo to dockerhub"){
+        withCredentials([usernamePassword(credentialsId: 'dockerhubcred', usernameVariable: 'USERNAME_DOC', passwordVariable: 'PASSWORD_DOC')]) {
+ 
+            sh 'docker login -u ${USERNAME_DOC} -p ${PASSWORD_DOC}'
+            sh 'docker image push muhammadasim0333/nodejs_dummy:${BUILD_NUMBER}'
+}
+    }
+    stage("Clean Up"){
+        sh 'docker logout'
+    }
+}
