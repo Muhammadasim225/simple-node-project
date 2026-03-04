@@ -27,6 +27,7 @@ pipeline {
     agent any
     environment{
         IMAGE_NAME = "muhammadasim0333/nodejs_dummy"
+        scannerHome=tool 'SonarScanner'
     }
 
 
@@ -38,6 +39,16 @@ pipeline {
                 git branch: 'main', url: 'https://github.com/Muhammadasim225/simple-node-project'
             }
         }
+
+         stage('SonarQube Analysis') {
+            steps{
+                withSonarQubeEnv() {
+                sh "${scannerHome}/bin/sonar-scanner"
+                }
+
+            }
+            
+            }
 
         stage('Build Image') {
             steps {
