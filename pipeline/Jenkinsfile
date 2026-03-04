@@ -25,10 +25,10 @@
 
 pipeline {
     agent any
-
-    environment {
+    environment{
         IMAGE_NAME = "muhammadasim0333/nodejs_dummy"
     }
+
 
     stages {
 
